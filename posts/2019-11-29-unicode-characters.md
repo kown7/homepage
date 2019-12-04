@@ -2,10 +2,9 @@
 title: Unicode Characters
 --------------------
 
-# Introduction
-
 The most important Unicode Characters for my daily life.
 
+<!--more-->
 
 # Mathematics
 
@@ -53,12 +52,13 @@ See also [Wikipedia](https://de.wikipedia.org/wiki/Unicodeblock_Mathematische_Op
 ▕ ▏ 	U+202F 	narrow no-break space
 ▕﻿▏ 	U+FEFF 	zero width no-break space
 ▕ ▏ 	U+2007 	figure space
-▕᠎▏ 	U+180E 	Mongolian vowel separato
 ```
 
 # Text
 
 ```
 ﬀ       `Folgende` Ligatur
+—       Em Dash
+–       En Dash
 ```
 
