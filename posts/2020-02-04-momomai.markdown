@@ -1,5 +1,6 @@
 ---
 title: Momomai
+bgimage: momomai_food.jpg
 ---
 
 Japanese Pop-Up Restaurant. Best *Onigiri* I've ever had; with pickled(?) plums.
