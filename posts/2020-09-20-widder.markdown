@@ -1,0 +1,10 @@
+---
+title: Widder Restaurant
+bgimage: widder.webp
+---
+
+Hervorragendes Essen mit viel Gefischtem.
+
+
+Wein meh.
+
