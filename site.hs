@@ -67,6 +67,18 @@ main = hakyll $ do
                 >>= relativizeUrls
 
 
+    create ["sitemap.xml"] $ do
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll "posts/*"
+            -- pages <- loadAll "pages/*"
+            let sitemapCtx =
+                  -- constField "baseUrl" root          `mappend`
+                  listField "posts" sitemapPostCtx (return posts) `mappend`
+                  sitemapPostCtx
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/sitemap.xml" sitemapCtx
+
     match "index.html" $ do
         route idRoute
         compile $ do
@@ -98,6 +110,16 @@ teaserCtx = teaserField "teaser" "content" `mappend` postCtx
 
 siteDesc :: String
 siteDesc = "Ramblings of mine"
+
+
+baseUrl :: String
+baseUrl = "https://www.nordstroem.ch"
+
+sitemapPostCtx :: Context String
+sitemapPostCtx =
+    dateField "date" "%Y-%m-%d" `mappend`
+    constField "baseUrl" baseUrl `mappend`
+    defaultContext
 
 --------------------------------------------------------------------------------
 -- Recent Posts
