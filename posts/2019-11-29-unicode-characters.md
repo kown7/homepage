@@ -70,5 +70,10 @@ See also [Wikipedia](https://de.wikipedia.org/wiki/Unicodeblock_Mathematische_Op
 ﬀ       `Folgende` Ligatur
 —       Em Dash
 –       En Dash
+
+†       DAGGER
+‡       DOUBLE DAGGER
+✓       checkmark
+☑       ballot box
 ```
 
