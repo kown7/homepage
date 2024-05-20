@@ -26,3 +26,7 @@ For more information about Twenty Seventeen please go to https://codex.wordpress
 
 sftp nordstr2@nordstroem.ch
 
+# License
+
+All rights reserved
+
