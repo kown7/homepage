@@ -14,8 +14,22 @@
   </url>
 
   <url>
+    <loc>https://www.nordstroem.ch/posts/2024-09-15-yuzus.html</loc>
+    <lastmod>2024-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.nordstroem.ch/posts/2024-04-30-adventures-in-tikz-land.html</loc>
     <lastmod>2024-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2023-09-23-tdre.html</loc>
+    <lastmod>2023-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
