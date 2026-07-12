@@ -2,4 +2,4 @@
 title: Contact
 ---
 
-Contact information can go here
+Contact information can go here.

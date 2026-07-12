@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Autostart VcXsrv</title>
+        <title>Astro on Cloudflare Pages with Functions</title>
         <!-- <link rel="stylesheet" href="/css/default.css" /> -->
         <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" href="../css/googlefont.css" />
@@ -23,7 +23,7 @@
 	                        <div class="wrap">
 
 	                          <div class="site-branding-text">
-					          <h1 class="site-title"><a href="#link" rel="home">Autostart VcXsrv</a></h1>
+					          <h1 class="site-title"><a href="#link" rel="home">Astro on Cloudflare Pages with Functions</a></h1>
 
 						          <p class="site-description">Ramblings of mine</p>
 				                    </div><!-- .site-branding-text -->
@@ -49,16 +49,26 @@
         <div class="entry-meta">
             <span class="screen-reader-text">Posted on</span>
             <a href="#" rel="bookmark">
-                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">February 21, 2015</time></a>
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">January 15, 2025</time></a>
         </div>
-        <h3 class="entry-title"><a href="#" rel="bookmark">Autostart VcXsrv</a></h3>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Astro on Cloudflare Pages with Functions</a></h3>
         
     </header>
     <section class="entry-content">
-        <p>Instead of having a dual-boot setup, Windows came shipped with a hypervisor for virtualization. Setting up a linux system with a console was an obvious choice; but how to get access to important GUI tools like gitk?</p>
-<p>Connecting with SSH to the virtual linux system and then X forwarding with <a href="http://vcxsrv.sourceforge.net/">VcXsrv</a> may not seem to be the obvious solution, but it works perfectly fine. But how to start vcxsrv without having to click through the configuration every time?</p>
-<p>Add the vcxsrv.bat script to your startup folder: C:\Users\<span style="color:#800080;">&lt;yourUsername&gt;</span>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup. It should contain the following line:</p>
-<pre><code>start &quot;&quot; &quot;C:\Program Files\VcXsrv\vcxsrv.exe&quot; -multiwindow</code></pre>
+        <p>Migrating our family cottage away from a Wordpress site to something homegrown.</p>
+<p>Aims:</p>
+<ul>
+<li>Booking system with custom rules</li>
+<li>Track everything in git</li>
+<li><a href="https://astro.build/">Astro</a> as a framework</li>
+</ul>
+<h1 id="astro">Astro</h1>
+<p>It’s a static site generator.</p>
+<h1 id="cloudflare-pages">Cloudflare Pages</h1>
+<p>Free hosting for your static site. Use <em>Basic Auth</em> protected by <em>Functions</em> as described here: <a href="https://github.com/garrison/cloudflare-pages-shared-password" class="uri">https://github.com/garrison/cloudflare-pages-shared-password</a>.</p>
+<p>Functions to serverlessy process the bookings.</p>
+<h1 id="wordpress">Wordpress</h1>
+<p>Keep a local copy though: <a href="https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65" class="uri">https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65</a></p>
     </section>
 </article>
 
