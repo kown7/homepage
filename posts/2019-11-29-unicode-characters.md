@@ -2,7 +2,7 @@
 title: Unicode Characters
 --------------------
 
-The most important Unicode Characters for my daily life.
+The most commonly used Unicode characters.
 
 <!--more-->
 
