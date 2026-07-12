@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Test-Driven Requirements Engineering</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">Test-Driven Requirements Engineering</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">September 23, 2023</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Test-Driven Requirements Engineering</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <p>At a recent <a href="https://socrates-day.ch/">SoCraTes Day</a> the test sessions were often focused on how to derive good tests. Yes, I was part of that as well.</p>
+<p>At the discussions of one book<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> the presenter told an anecdote about their way to derive tests. They brought the product owner, the developer and the tester into one room. They discussed missed tests, acceptance tests, the unstated features and behaviours and probably many more things.</p>
+<p>Other participants mentioned similar happenings, e.g., discussing behaviour and acceptance testing with the customer after the fact: “we expected him to say yes to our acceptance tests”.</p>
+<p>It otherwise derailed the conversation, but one attendant mentioned correctly that deriving test cases is a very mechanistic procedure. Equivalence class partitioning and boundary value analysis is a good starting point. She failed to mention though that this requires complete and correct requirements. It later dawned upon me: this isn’t about tests — it’s requirements engineering with extra steps. Putting the cart before the horse by extracting requirements after the implementation is done.</p>
+<p>In the tradition of TDD I’m tempted to call this TDRE: test-driven requirements engineering. There’s even a <a href="https://cdn.vector.com/cms/content/consulting/publications/Ebert_TestDrivenRequirementsEngineering_TDRE_IEEESoftware_2021.pdf">paper</a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> that elaborates on the process.</p>
+<p>We have to expect that requirements change and, unless you’re on a safety critical project, e.g. following any <a href="https://en.wikipedia.org/wiki/IEC_61508">EN 61508</a> derived standard, to be incomplete. We’ll have to find processes to work with these inconvenient facts of life. Elevating a crutch that fixes gaps in the specifications to best practices is some shape of reckless.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>maybe <a href="https://fiftyquickideas.com/fifty-quick-ideas-to-improve-your-tests/toc.html">this</a> one<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>To be fair I haven’t read much more than the abstract.<a href="#fnref2">↩</a></p></li>
+</ol>
+</div>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-09-15-yuzus.html" title="Dried Yuzu Slices">Dried Yuzu Slices</a></li>
+<li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-23-tdre.html" title="Test-Driven Requirements Engineering">Test-Driven Requirements Engineering</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>
