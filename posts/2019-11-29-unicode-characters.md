@@ -15,6 +15,8 @@ The most important Unicode Characters for my daily life.
 ∈	ELEMENT OF
 …	LDOTS (Ellipsis)
 ≠	NOT EQUAL TO
+±       plus-minus
+⋅	DOT OPERATOR
 ```
 
 See also [Wikipedia](https://de.wikipedia.org/wiki/Unicodeblock_Mathematische_Operatoren) for more operators.
