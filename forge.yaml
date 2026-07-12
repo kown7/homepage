@@ -1,0 +1,47 @@
+# FORGE Configuration File
+version: "1.0"
+
+# Define stages in your pipeline
+stages:
+  - name: setup
+    steps:
+      - name: Install Dependencies
+        command: cabal update
+        image: haskell:8.10.3
+      - name: Build the Tooling
+        command: cabal build
+        image: haskell:8.10.3
+    parallel: false
+
+  - name: test
+    steps:
+      - name: Run Tests
+        command: echo "Running tests..."
+        image: alpine:latest
+      - name: Touch myshelfs
+        command: touch /tmp/asdf.qwer.log; ls -lR /tmp/
+        image: alpine:latest
+      - name: Touch myshelfs
+        command: ls -lR /tmp/
+        image: alpine:latest
+
+  - name: build
+    steps:
+      - name: Build Application
+        command: cabal exec site build
+        image: haskell:8.10.3
+    depends_on:
+      - setup
+
+# Cache configuration
+cache:
+  enabled: true
+  directories:
+    - /root/.cabal
+    - /root/.stack
+    - /root/.ghc
+
+# Secrets configuration
+#secrets:
+#  - name: API_TOKEN
+#    env_var: FORGE_API_TOKEN
