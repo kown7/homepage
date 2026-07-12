@@ -4,8 +4,8 @@ title: Adventures in TikZ-Land
 
 # Introduction
 
-There is a certain desire, e.g., [^1][^2][^3] &c, to embed non-vector graphics 
-in the source document for a LaTeX document.
+There is a certain desire, e.g., [^1][^2][^3] and more, to embed non-vector
+graphics in the source document for a LaTeX document.
 
 I haven't yet tried [^3] but it should do the for most use-cases, but it requires
 an external command to do its magic.
@@ -58,7 +58,7 @@ Now whenever we want to create a TikZ diagram we need to use the tikzpicture env
 ## Transforming the Picture
 
 The `.png` image is converted to a [PPM](https://netpbm.sourceforge.net/doc/ppm.html)
-image using run-of-the-mill `convert` from ImageMagick. The following Python 
+image using run-of-the-mill `convert` from ImageMagick. The following Python
 script then turns that into a LaTeX array.
 
 ```python
@@ -142,7 +142,7 @@ look particularly good though.
 
 # Post-Script
 
-Reading through the references mentioned hereafter, it seems as if EPS files 
+Reading through the references mentioned hereafter, it seems as if EPS files
 acould be embedded. Another item on the backlog.
 
 
@@ -156,6 +156,6 @@ Other solutions are needed.
 
 [^1]: https://tex.stackexchange.com/questions/21541/embedding-images-with-an-encoding-algorithm
 [^2]: https://tex.stackexchange.com/questions/208819/embedding-images-in-tex-file-as-base64-strings
-[^3]: https://github.com/zerotoc/pdfinlimg 
+[^3]: https://github.com/zerotoc/pdfinlimg
 [^4]: https://tex.stackexchange.com/a/157134 in https://tex.stackexchange.com/questions/157080/can-tikz-create-pixel-art-images
 [^9]: https://web.archive.org/web/20211022212446/http://alexisfles.ch/en/latex/pixelart.html
