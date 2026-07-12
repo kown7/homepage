@@ -23,6 +23,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        stack build
+        cabal stack build
     - name: Build
       run: cabal exec site build
