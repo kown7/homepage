@@ -2,10 +2,9 @@
 title: Gaisler Coding Guidelines
 -----
 
-The [Gaisler coding
-guidelines](https://web.archive.org/web/20160222084327/http://www.gaisler.com/doc/vhdl2proc.pdf) starts with a
-description of a hideously coded latch with some data processing as an
-example as why not to code in a data-flow manner. I strongly agree, as
+The [Gaisler coding guidelines](https://web.archive.org/web/20160222084327/http://www.gaisler.com/doc/vhdl2proc.pdf)
+starts with a description of a hideously coded latch with some data processing
+as an example as why not to code in a data-flow manner. I strongly agree, as
 the example has further bad naming, it splits signals that appear to
 belong together et c. Furthermore the statements could be written as
 one-liners without any process construct around them.
