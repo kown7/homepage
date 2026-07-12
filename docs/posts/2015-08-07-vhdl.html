@@ -57,47 +57,59 @@
     <section class="entry-content">
         <p>Things I’ve discovered and considered relevant at the time.</p>
 <h1 id="access-keyword">Access Keyword</h1>
-<p>One way to handle variable length strings is to use access pointers as defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
+<p>One way to handle variable length strings is to use access pointers as
+defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
 <p>Assigning a new string goes as follows.</p>
 <pre><code>type str_ptr is access string;
 variable myString str_ptr;
 myString := string'(&quot;hello world&quot;);</code></pre>
 <h1 id="conditional-writeline">Conditional Writeline</h1>
-<p>or how to handle lines written as debug messages in case they’re not needed. We don’t want to create memory leaks, don’t we?</p>
+<p>or how to handle lines written as debug messages in case they’re not
+needed. We don’t want to create memory leaks, don’t we?</p>
 <pre><code>variable lineOut : line;
 if someBoolean then
   write(fh, lineOut);
   else
     deallocate(lineOut);
     end if;</code></pre>
-<p>The source is <a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
+<p>The source is
+<a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
 <h1 id="delay-model">Delay Model</h1>
-<p>The VHDL delay model has a few quirks when it comes to delayed assignments. If in the following examples</p>
+<p>The VHDL delay model has a few quirks when it comes to delayed
+assignments. If in the following examples</p>
 <pre><code>q1&lt;=r nor nq after 1ns;
 q2&lt;=transport r nor nq after 1ns;</code></pre>
-<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A more thorough explanation can be found <a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
+<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A
+more thorough explanation can be found
+<a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
 <h2 id="vhdl-bits-and-pieces">VHDL bits and pieces</h2>
 <p>Things I’ve discovered and considered relevant at the time.</p>
 <h1 id="access-keyword-1">Access Keyword</h1>
-<p>One way to handle variable length strings is to use access pointers as defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
+<p>One way to handle variable length strings is to use access pointers as
+defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
 <p>Assigning a new string goes as follows.</p>
 <pre><code>type str_ptr is access string;
 variable myString str_ptr;
 myString := string'(&quot;hello world&quot;);</code></pre>
 <h1 id="conditional-writeline-1">Conditional Writeline</h1>
-<p>or how to handle lines written as debug messages in case they’re not needed. We don’t want to create memory leaks, don’t we?</p>
+<p>or how to handle lines written as debug messages in case they’re not
+needed. We don’t want to create memory leaks, don’t we?</p>
 <pre><code>variable lineOut : line;
 if someBoolean then
   write(fh, lineOut);
   else
     deallocate(lineOut);
     end if;</code></pre>
-<p>The source is <a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
+<p>The source is
+<a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
 <h1 id="delay-model-1">Delay Model</h1>
-<p>The VHDL delay model has a few quirks when it comes to delayed assignments. If in the following examples</p>
+<p>The VHDL delay model has a few quirks when it comes to delayed
+assignments. If in the following examples</p>
 <pre><code>q1&lt;=r nor nq after 1ns;
 q2&lt;=transport r nor nq after 1ns;</code></pre>
-<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A more thorough explanation can be found <a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
+<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A
+more thorough explanation can be found
+<a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
     </section>
 </article>
 

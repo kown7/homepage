@@ -56,8 +56,18 @@
     </header>
     <section class="entry-content">
         <h1 id="introduction">Introduction</h1>
-<p>Recently, a colleague expressed concern about losing his Jira history upon completing a project, along with all the crucial (functional-safety related) documentation accumulated within it. While exporting each issue to a PDF with attachments may meet compliance requirements, it presents a nightmarish user experience and won’t easily adapt to future customer needs.</p>
-<p>During the same period, I stumbled upon <a href="https://github.com/google/git-appraise"><code>git-appraise</code></a>, sparking a compelling question: Can we replace web-based tools with solutions that store their information, history, and artifacts directly in the repository? This shift would necessitate replacing several critical tools for our use cases:</p>
+<p>Recently, a colleague expressed concern about losing his Jira
+history upon completing a project, along with all the crucial
+(functional-safety related) documentation accumulated within it. While
+exporting each issue to a PDF with attachments may meet compliance
+requirements, it presents a nightmarish user experience and won’t
+easily adapt to future customer needs.</p>
+<p>During the same period, I stumbled upon
+<a href="https://github.com/google/git-appraise"><code>git-appraise</code></a>, sparking a
+compelling question: Can we replace web-based tools with solutions
+that store their information, history, and artifacts directly in the
+repository? This shift would necessitate replacing several critical
+tools for our use cases:</p>
 <ul>
 <li><em>Jira</em>: For issue tracking and general project management</li>
 <li><em>Confluence</em>: As our wiki and documentation platform</li>
@@ -65,12 +75,18 @@
 <li><em>Artifactory</em>: For storing (Docker) images and other CI/CD artifacts</li>
 <li><em>Gerrit</em>: For code reviews</li>
 </ul>
-<p>It’s important to <em>emphasize</em> that the replacement itself isn’t the core focus here – I recognize the challenge of persuading our customers to embrace command-line interfaces over familiar web UIs. The <em>primary objective</em> lies in centralizing all relevant data alongside the code.</p>
+<p>It’s important to <em>emphasize</em> that the replacement itself isn’t the
+core focus here – I recognize the challenge of persuading our
+customers to embrace command-line interfaces over familiar web
+UIs. The <em>primary objective</em> lies in centralizing all relevant data
+alongside the code.</p>
 <p><a href="https://news.ycombinator.com/item?id=37459288">HN link-back</a>.</p>
 <h1 id="jira">Jira</h1>
 <h2 id="use-cases">Use Cases</h2>
-<p>I figure Jira is at its core an issue tracker with a set of boards (kanban, backlog, …). The issue can have various status flows attached to them.</p>
-<p>Here’s an incomplete list of responsabilities/use-cases propped upon Jira by ingenious PMO that need to be addressed.</p>
+<p>I figure Jira is at its core an issue tracker with a set of boards (kanban,
+backlog, …). The issue can have various status flows attached to them.</p>
+<p>Here’s an incomplete list of responsabilities/use-cases propped upon Jira by
+ingenious PMO that need to be addressed.</p>
 <ul>
 <li>(Kanban) Board / Backlog</li>
 <li>Release Planning</li>
@@ -83,26 +99,47 @@
 </ul>
 <p>⚠ Question for the readers: what other use-cases have been implemented with it?</p>
 <h2 id="issuebug-tracking">Issue/Bug Tracking</h2>
-<p>For the basic use-case of tracking <em>Issues</em> and <em>Bugs</em> is covered by either of the following tools. Their respective advantages and downsides are addressed.</p>
+<p>For the basic use-case of tracking <em>Issues</em> and <em>Bugs</em> is covered by either of
+the following tools. Their respective advantages and downsides are addressed.</p>
 <h3 id="git-issue">git issue</h3>
-<p>There’s <a href="https://github.com/dspinellis/git-issue">git-issue</a> with an introductory video at <a href="https://archive.fosdem.org/2020/schedule/event/git_issue_management/">FOSDEM’20</a>. It allows to do issue tracking in a git repository.</p>
-<p>As a UI it supports syncing to <em>Gitlab</em> and <em>GitHub</em>. There their web interface can be used instead.</p>
+<p>There’s <a href="https://github.com/dspinellis/git-issue">git-issue</a> with an introductory
+video at <a href="https://archive.fosdem.org/2020/schedule/event/git_issue_management/">FOSDEM’20</a>.
+It allows to do issue tracking in a git repository.</p>
+<p>As a UI it supports syncing to <em>Gitlab</em> and <em>GitHub</em>. There their web interface
+can be used instead.</p>
 <h3 id="git-bug">git bug</h3>
-<p>The tool <a href="https://github.com/MichaelMure/git-bug">git-bug</a> seems to support the same basic features. The biggest drawback seem to be the lack of attachments to issues. On the plus side there are multiple UI front ends, e.g., terminal, web, &amp;c.</p>
-<p>There’s even a <a href="https://github.com/MichaelMure/git-bug/pull/843">board</a> under development.</p>
+<p>The tool <a href="https://github.com/MichaelMure/git-bug">git-bug</a> seems to support the
+same basic features. The biggest drawback seem to be the lack of attachments
+to issues. On the plus side there are multiple UI front ends, e.g., terminal,
+web, &amp;c.</p>
+<p>There’s even a <a href="https://github.com/MichaelMure/git-bug/pull/843">board</a> under
+development.</p>
 <h2 id="release-planning">Release Planning</h2>
-<p>In Jira one can define the release for which the issue will be fixed. Then all issues that are part of the release show up in the release page of that specific release. With this mechanism one can check if all issues that are planned for a release are done.</p>
+<p>In Jira one can define the release for which the issue will be fixed. Then all
+issues that are part of the release show up in the release page of that specific
+release. With this mechanism one can check if all issues that are planned for a
+release are done.</p>
 <h3 id="release-notes">Release Notes</h3>
-<p>Storing release information in the respective issues sounds compelling. It’s not a dedicated tool for the task. The release notes need to be stiched together manually.</p>
+<p>Storing release information in the respective issues sounds compelling. It’s
+not a dedicated tool for the task. The release notes need to be stiched together
+manually.</p>
 <p>As an example, have a look at <a href="https://github.com/nedbat/scriv">scriv</a>.</p>
 <h2 id="earned-value-effort-spent">Earned Value / Effort Spent</h2>
 <p>This is supported by <code>git-issue</code>. However it’s not supported by <code>git-bug</code>.</p>
-<p>If the information needs to be duplicated in your time-tracking software, I suggest you track the information there or your project design Excel file. There’s also <em>Projects</em> for the more serious project managers.</p>
+<p>If the information needs to be duplicated in your time-tracking software, I
+suggest you track the information there or your project design Excel file.
+There’s also <em>Projects</em> for the more serious project managers.</p>
 <h2 id="boards">Boards</h2>
-<p>Boards are used to organise issues, bugs, and workflows. Boards only make sense if there’s a proper UI. Hence the only the state needs to be synced.</p>
-<p>Support for boards is currently under development in <code>git-bug</code>. Whether this information can be synced is rather unclear. However upon completion of a (sub-)project this information is rather moot.</p>
+<p>Boards are used to organise issues, bugs, and workflows. Boards only make sense
+if there’s a proper UI. Hence the only the state needs to be synced.</p>
+<p>Support for boards is currently under development in <code>git-bug</code>. Whether this
+information can be synced is rather unclear. However upon completion of a
+(sub-)project this information is rather moot.</p>
 <h2 id="requirements">Requirements</h2>
-<p>Missing from the above list is a suitable tool to track requirements. I’ve heard people do this in Jira. This brings us back to the above problem and probably shouldn’t be done anyways. Including requirements we should have a complete UNIX philosophy inspired ALM “tool”.</p>
+<p>Missing from the above list is a suitable tool to track requirements. I’ve
+heard people do this in Jira. This brings us back to the above problem and
+probably shouldn’t be done anyways. Including requirements we should have a
+complete UNIX philosophy inspired ALM “tool”.</p>
 <p>See the following free and open options:</p>
 <ul>
 <li><a href="https://sphinx-needs.readthedocs.io/en/latest/">sphinx-needs</a></li>
@@ -111,26 +148,52 @@
 <li>there are others; give it a go in your favourite search engine.</li>
 </ul>
 <h1 id="confluence">Confluence</h1>
-<p>It’s about the only wiki out there with a <a href="https://en.wikipedia.org/wiki/Collaborative_real-time_editor">collaborative real-time WYSIWYG editor</a>. The only alternative out there is probably Office365 and <a href="https://www.notion.so/help/collaborate-within-a-workspace#real-time-collaboration">Notion</a>. VCS tracked markdown wikis are plentiful, e.g., GitHub uses that for their Wikis.</p>
-<p>Locally editing and live-preview is probably a solved problem, e.g., [Gollum] (https://github.com/gollum/gollum). Merely editing markdown see, e.g., (https://typora.io/).</p>
-<p>⚠ Linking to issues from the wiki has been used successfully. This can be emulated by creating links to the git-bug ID. This is however not very transferrable to any web UI.</p>
+<p>It’s about the only wiki out there with a <a href="https://en.wikipedia.org/wiki/Collaborative_real-time_editor">collaborative real-time WYSIWYG
+editor</a>. The
+only alternative out there is probably Office365 and
+<a href="https://www.notion.so/help/collaborate-within-a-workspace#real-time-collaboration">Notion</a>.
+VCS tracked markdown wikis are plentiful, e.g., GitHub uses that for their
+Wikis.</p>
+<p>Locally editing and live-preview is probably a solved problem, e.g., [Gollum]
+(https://github.com/gollum/gollum). Merely editing markdown see, e.g.,
+(https://typora.io/).</p>
+<p>⚠ Linking to issues from the wiki has been used successfully. This can be
+emulated by creating links to the git-bug ID. This is however not very
+transferrable to any web UI.</p>
 <h1 id="bamboo">Bamboo</h1>
-<p>Alternatives to centrally hosted CI/CD tooling should be available at every turn. Jenkins certainly provides everything, the hosting requires some effort though to keep up-to-date.</p>
-<p>We assume our builds and tests are going to be reproducible. Then we should be able to run the tests, builds, &amp;c. locally without a centralized infrastructure.</p>
-<p><a href="https://github.com/nektos/act">Act</a> allows us to run our CI/CD pipeline locally. The syntax promises to be <em>GitHub Actions</em> compatible.</p>
+<p>Alternatives to centrally hosted CI/CD tooling should be available at every
+turn. Jenkins certainly provides everything, the hosting requires some effort
+though to keep up-to-date.</p>
+<p>We assume our builds and tests are going to be reproducible. Then we should be
+able to run the tests, builds, &amp;c. locally without a centralized
+infrastructure.</p>
+<p><a href="https://github.com/nektos/act">Act</a> allows us to run our CI/CD pipeline
+locally. The syntax promises to be <em>GitHub Actions</em> compatible.</p>
 <h1 id="artifactory">Artifactory</h1>
-<p>It is questionable whether this tool can be replaced. We need some form of repository for the OS abstraction. Be that docker, podman, or some other images. These images can’t be reasonably stored in a git repository.</p>
-<p>If there are no Docker artifacts being generated, the artifacts can be pushed to the repository using git-lfs. A method to avoid build-loops must be devised if a CI is used.</p>
+<p>It is questionable whether this tool can be replaced. We need some form of
+repository for the OS abstraction. Be that docker, podman, or some other images.
+These images can’t be reasonably stored in a git repository.</p>
+<p>If there are no Docker artifacts being generated, the artifacts can be pushed
+to the repository using git-lfs. A method to avoid build-loops must be devised
+if a CI is used.</p>
 <h1 id="gerrit">Gerrit</h1>
-<p>With <a href="https://github.com/google/git-appraise"><code>git-appraise</code></a> we can do code reviews in the console. The results are also stored under revision control.</p>
+<p>With <a href="https://github.com/google/git-appraise"><code>git-appraise</code></a> we can do code reviews
+in the console. The results are also stored under revision control.</p>
 <p>There’s even a read-only <a href="https://github.com/google/git-appraise-web">UI</a>.</p>
 <h1 id="safety">Safety</h1>
-<p>An important aspect that hasn’t been discussed is access management. Everyone with access to the repository can see all data therein. This might be problem, e.g., if your developers aren’t supposed to have insight into all wiki pages.</p>
-<p>This can realisitcally only be solved by using submodules that separate those concerns.</p>
+<p>An important aspect that hasn’t been discussed is access management. Everyone with
+access to the repository can see all data therein. This might be problem, e.g., if
+your developers aren’t supposed to have insight into all wiki pages.</p>
+<p>This can realisitcally only be solved by using submodules that separate those
+concerns.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>It should be possible to do the full workflow on the console.</p>
-<p>However, we can leverage the existing web UI for convenience. We need to be aware of the synchronization tools’ limitations. It probably pays dividends to have plan for <em>all</em> documentation from the beginning. Putting everything into Jira doesn’t sound a like good plan.</p>
-<p>There might even be some financial gains to be had by only paying for tools while actually using them.</p>
+<p>However, we can leverage the existing web UI for convenience. We need to be
+aware of the synchronization tools’ limitations. It probably pays dividends to
+have plan for <em>all</em> documentation from the beginning. Putting everything into
+Jira doesn’t sound a like good plan.</p>
+<p>There might even be some financial gains to be had by only paying for
+tools while actually using them.</p>
 <h2 id="missing-key-features">Missing Key Features</h2>
 <ul>
 <li>Putting attachements on issues in Jira will not transfer at the moment.</li>

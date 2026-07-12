@@ -59,7 +59,8 @@
 <pre><code>ping6 cannot assign requested address</code></pre>
 <p>and dmesg yields something along</p>
 <pre><code>[ 411.224402] IPv6: eth0: IPv6 duplicate address fe80::dead:beef detected!</code></pre>
-<p>then a possible solution is to disable duplicate address discovery (DAD). Add the following line in /etc/sysctl.conf.</p>
+<p>then a possible solution is to disable duplicate address discovery
+(DAD). Add the following line in /etc/sysctl.conf.</p>
 <pre><code>net.ipv6.conf.eth0.accept_dad=0</code></pre>
     </section>
 </article>

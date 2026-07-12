@@ -56,126 +56,135 @@
     </header>
     <section class="entry-content">
         <h1 id="introduction">Introduction</h1>
-<p>There is a certain desire, e.g., <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> and more, to embed non-vector graphics in the source document for a LaTeX document.</p>
-<p>I haven’t yet tried <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> but it should do the for most use-cases, but it requires an external command to do its magic.</p>
-<p>My idead was to use TikZ to draw a bitmap with single aquares. It’s not the most efficient, but for spares images it could be good enough.</p>
+<p>There is a certain desire, e.g., <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and more, to embed non-vector
+graphics in the source document for a LaTeX document.</p>
+<p>I haven’t yet tried <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> but it should do the for most use-cases, but it requires
+an external command to do its magic.</p>
+<p>My idead was to use TikZ to draw a bitmap with single aquares. It’s not the most
+efficient, but for spares images it could be good enough.</p>
 <hr />
 <h1 id="working-example">Working Example</h1>
-<p>There’s not a lot to go through, the solution was proposed basically proposed here<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<p>There’s not a lot to go through, the solution was proposed basically proposed
+here<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <h2 id="overall-latex-file">Overall LaTeX File</h2>
-<p>The minimal working examples (MWE) for a TikZ image follows. The external file <code>mwe2h.tex</code> defines the <code>\pixels</code>.</p>
-<div class="sourceCode"><pre class="sourceCode tex"><code class="sourceCode latex"><span class="bu">\documentclass</span>{<span class="ex">article</span>}
-<span class="bu">\usepackage</span>{<span class="ex">tikz</span>}
-<span class="bu">\usepackage</span>{<span class="ex">tikzscale</span>}
-
-<span class="fu">\input</span>{mwe2h}
-
-<span class="kw">\begin</span>{<span class="ex">document</span>}
-
-Now whenever we want to create a TikZ diagram we need to use the tikzpicture environment.
-
-<span class="kw">\begin</span>{<span class="ex">figure</span>}
-<span class="fu">\centering</span>
-<span class="fu">\resizebox</span>{7cm}{!}{<span class="co">%</span>
-<span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}
-  <span class="fu">\foreach</span> <span class="fu">\line</span> [count=<span class="fu">\y</span>] in <span class="fu">\pixels</span> {
-    <span class="fu">\foreach</span> <span class="fu">\pix</span> [count=<span class="fu">\x</span>] in <span class="fu">\line</span> {
-      <span class="co">%\draw[fill=pixel \pix] (\x,-\y) rectangle +(1,1);</span>
-	    <span class="fu">\filldraw</span>[fill=c<span class="fu">\pix</span>, draw=c<span class="fu">\pix</span>] (<span class="fu">\x</span>,-<span class="fu">\y</span>) rectangle +(1,1);
-    }
-  }
-<span class="kw">\end</span>{<span class="ex">tikzpicture</span>}
-}
-<span class="kw">\end</span>{<span class="ex">figure</span>}
-
-<span class="kw">\end</span>{<span class="ex">document</span>}</code></pre></div>
+<p>The minimal working examples (MWE) for a TikZ image follows. The external
+file <code>mwe2h.tex</code> defines the <code>\pixels</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode tex"><code class="sourceCode latex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">tikz</span>}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">tikzscale</span>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\input</span>{mwe2h}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">document</span>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Now whenever we want to create a TikZ diagram we need to use the tikzpicture environment.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">figure</span>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">\centering</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">\resizebox</span>{7cm}{!}{<span class="co">%</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">\foreach</span> <span class="fu">\line</span> [count=<span class="fu">\y</span>] in <span class="fu">\pixels</span> {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">\foreach</span> <span class="fu">\pix</span> [count=<span class="fu">\x</span>] in <span class="fu">\line</span> {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>      <span class="co">%\draw[fill=pixel \pix] (\x,-\y) rectangle +(1,1);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>	    <span class="fu">\filldraw</span>[fill=c<span class="fu">\pix</span>, draw=c<span class="fu">\pix</span>] (<span class="fu">\x</span>,-<span class="fu">\y</span>) rectangle +(1,1);</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">tikzpicture</span>}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">figure</span>}</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div>
 <h2 id="transforming-the-picture">Transforming the Picture</h2>
-<p>The <code>.png</code> image is converted to a <a href="https://netpbm.sourceforge.net/doc/ppm.html">PPM</a> image using run-of-the-mill <code>convert</code> from ImageMagick. The following Python script then turns that into a LaTeX array.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&quot;&quot;&quot;This is a crude hack to convert ppm files to tikz&quot;&quot;&quot;</span>
-<span class="im">import</span> hashlib
-<span class="im">from</span> collections <span class="im">import</span> defaultdict
-
-
-<span class="kw">def</span> parse_ppm_file(file_path):
-    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'rb'</span>) <span class="im">as</span> ppm_file:
-        header <span class="op">=</span> ppm_file.readline()
-        width, height <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, ppm_file.readline().split())
-        max_val <span class="op">=</span> <span class="bu">int</span>(ppm_file.readline())
-
-        data <span class="op">=</span> ppm_file.read()
-
-    pixel_values <span class="op">=</span> []
-    colours <span class="op">=</span> defaultdict(<span class="bu">int</span>)
-    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), <span class="dv">3</span>):
-        r <span class="op">=</span> data[i]
-        g <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">1</span>]
-        b <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">2</span>]
-        colours[(r,g,b)] <span class="op">+=</span> <span class="dv">1</span>
-        pixel_values.append((r, g, b))
-
-    <span class="cf">return</span> pixel_values, width, height, colours
-
-
-<span class="kw">def</span> generate_tikz_file(file_path, pixels, width, height, colourmap):
-    <span class="cf">with</span> <span class="bu">open</span>(file_path <span class="op">+</span> <span class="st">&quot;.tex&quot;</span>, <span class="st">'w'</span>) <span class="im">as</span> tikz_file:
-        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">begin</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)
-
-        maxkey <span class="op">=</span> <span class="bu">max</span>(colourmap, key<span class="op">=</span>colourmap.get)
-        maxval <span class="op">=</span> colourmap[maxkey]
-        tikz_file.write(<span class="st">&quot;% max value: </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(maxkey, maxval))
-        <span class="cf">for</span> colours, numbers <span class="kw">in</span> colourmap.items():
-            <span class="cf">if</span> numbers:
-                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(colours[<span class="dv">0</span>], colours[<span class="dv">1</span>], colours[<span class="dv">2</span>])
-                key <span class="op">=</span> htmlcolour
-                tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">definecolor</span><span class="sc">{{</span><span class="st">c</span><span class="sc">{}}}{{</span><span class="st">HTML</span><span class="sc">}}{{{}}}</span><span class="st"> % </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(key, htmlcolour, numbers))
-        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">def</span><span class="ch">\\</span><span class="st">pixels{</span><span class="ch">\n</span><span class="st">&quot;</span>)
-        <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(height):
-            xlist <span class="op">=</span> []
-            <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(width):
-                <span class="co"># if pixels[y * width + x] == maxkey:</span>
-                <span class="co">#     continue</span>
-                r, g, b <span class="op">=</span> pixels[y <span class="op">*</span> width <span class="op">+</span> x]
-                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(r, g, b)
-                key <span class="op">=</span> htmlcolour
-                <span class="co"># tikz_file.write(&quot;\\filldraw[fill=c{}, draw=c{}] ({},-{}) rectangle +(1,1);\n&quot;.format(key, key, x, y))</span>
-                xlist.append(htmlcolour)
-            tikz_file.write(<span class="st">&quot;</span><span class="sc">{{{}}}</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(<span class="st">&quot;,&quot;</span>.join(xlist)))
-        tikz_file.write(<span class="st">&quot;}</span><span class="ch">\n</span><span class="st">&quot;</span>)
-        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">end</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)
-
-<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:
-    <span class="im">import</span> sys
-
-    <span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">!=</span> <span class="dv">2</span>:
-        <span class="bu">print</span>(<span class="st">&quot;Usage: python parse_ppm.py &lt;filename&gt;&quot;</span>)
-        sys.exit(<span class="dv">1</span>)
-
-    file_path <span class="op">=</span> sys.argv[<span class="dv">1</span>]
-    pixels, width, height, colourmap <span class="op">=</span> parse_ppm_file(file_path)
-
-    tikz_file_path <span class="op">=</span> <span class="st">&quot;.&quot;</span>.join(file_path.split(<span class="st">'.'</span>)[:<span class="op">-</span><span class="dv">1</span>])  <span class="co"># Remove the file extension</span>
-    generate_tikz_file(tikz_file_path, pixels, width, height, colourmap)</code></pre></div>
+<p>The <code>.png</code> image is converted to a <a href="https://netpbm.sourceforge.net/doc/ppm.html">PPM</a>
+image using run-of-the-mill <code>convert</code> from ImageMagick. The following Python
+script then turns that into a LaTeX array.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&quot;&quot;&quot;This is a crude hack to convert ppm files to tikz&quot;&quot;&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hashlib</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_ppm_file(file_path):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'rb'</span>) <span class="im">as</span> ppm_file:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        header <span class="op">=</span> ppm_file.readline()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        width, height <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, ppm_file.readline().split())</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        max_val <span class="op">=</span> <span class="bu">int</span>(ppm_file.readline())</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> ppm_file.read()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    pixel_values <span class="op">=</span> []</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    colours <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), <span class="dv">3</span>):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> data[i]</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">2</span>]</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        colours[(r,g,b)] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        pixel_values.append((r, g, b))</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pixel_values, width, height, colours</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_tikz_file(file_path, pixels, width, height, colourmap):</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path <span class="op">+</span> <span class="st">&quot;.tex&quot;</span>, <span class="st">'w'</span>) <span class="im">as</span> tikz_file:</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">begin</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        maxkey <span class="op">=</span> <span class="bu">max</span>(colourmap, key<span class="op">=</span>colourmap.get)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        maxval <span class="op">=</span> colourmap[maxkey]</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        tikz_file.write(<span class="st">&quot;% max value: </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(maxkey, maxval))</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> colours, numbers <span class="kw">in</span> colourmap.items():</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> numbers:</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(colours[<span class="dv">0</span>], colours[<span class="dv">1</span>], colours[<span class="dv">2</span>])</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                key <span class="op">=</span> htmlcolour</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">definecolor</span><span class="sc">{{</span><span class="st">c</span><span class="sc">{}}}{{</span><span class="st">HTML</span><span class="sc">}}{{{}}}</span><span class="st"> % </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(key, htmlcolour, numbers))</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">def</span><span class="ch">\\</span><span class="st">pixels{</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(height):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>            xlist <span class="op">=</span> []</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(width):</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                <span class="co"># if pixels[y * width + x] == maxkey:</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>                <span class="co">#     continue</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                r, g, b <span class="op">=</span> pixels[y <span class="op">*</span> width <span class="op">+</span> x]</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(r, g, b)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>                key <span class="op">=</span> htmlcolour</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                <span class="co"># tikz_file.write(&quot;\\filldraw[fill=c{}, draw=c{}] ({},-{}) rectangle +(1,1);\n&quot;.format(key, key, x, y))</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                xlist.append(htmlcolour)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            tikz_file.write(<span class="st">&quot;</span><span class="sc">{{{}}}</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(<span class="st">&quot;,&quot;</span>.join(xlist)))</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        tikz_file.write(<span class="st">&quot;}</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">end</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> sys</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">!=</span> <span class="dv">2</span>:</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Usage: python parse_ppm.py &lt;filename&gt;&quot;</span>)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        sys.exit(<span class="dv">1</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    file_path <span class="op">=</span> sys.argv[<span class="dv">1</span>]</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    pixels, width, height, colourmap <span class="op">=</span> parse_ppm_file(file_path)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    tikz_file_path <span class="op">=</span> <span class="st">&quot;.&quot;</span>.join(file_path.split(<span class="st">'.'</span>)[:<span class="op">-</span><span class="dv">1</span>])  <span class="co"># Remove the file extension</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    generate_tikz_file(tikz_file_path, pixels, width, height, colourmap)</span></code></pre></div>
 <h1 id="alternatives">Alternatives</h1>
 <h2 id="pxpic">PxPic</h2>
 <p>https://ctan.org/pkg/pxpic</p>
 <h2 id="lines">Lines</h2>
-<p>It will reduce the size of the result if just was used<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. That doesn’t look particularly good though.</p>
+<p>It will reduce the size of the result if just was used<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. That doesn’t
+look particularly good though.</p>
 <h1 id="post-script">Post-Script</h1>
-<p>Reading through the references mentioned hereafter, it seems as if EPS files acould be embedded. Another item on the backlog.</p>
+<p>Reading through the references mentioned hereafter, it seems as if EPS files
+acould be embedded. Another item on the backlog.</p>
 <h1 id="summary">Summary</h1>
 <p>This works, but barely and doesn’t solve the problem to a adequate degree.</p>
 <p>Other solutions are needed.</p>
-<div class="footnotes">
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>https://tex.stackexchange.com/questions/21541/embedding-images-with-an-encoding-algorithm<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>https://tex.stackexchange.com/questions/208819/embedding-images-in-tex-file-as-base64-strings<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p>https://tex.stackexchange.com/a/157134 in https://tex.stackexchange.com/questions/157080/can-tikz-create-pixel-art-images<a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p>https://web.archive.org/web/20211022212446/http://alexisfles.ch/en/latex/pixelart.html<a href="#fnref6">↩</a></p></li>
+<li id="fn1"><p>https://tex.stackexchange.com/questions/21541/embedding-images-with-an-encoding-algorithm<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>https://tex.stackexchange.com/questions/208819/embedding-images-in-tex-file-as-base64-strings<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>https://tex.stackexchange.com/a/157134 in https://tex.stackexchange.com/questions/157080/can-tikz-create-pixel-art-images<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>https://web.archive.org/web/20211022212446/http://alexisfles.ch/en/latex/pixelart.html<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</div>
+</section>
     </section>
 </article>
 

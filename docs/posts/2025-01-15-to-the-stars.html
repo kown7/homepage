@@ -55,34 +55,54 @@
         
     </header>
     <section class="entry-content">
-        <p>Migrating our family homepage with a booking system away from a Wordpress site to something homegrown. The main aims are</p>
+        <p>Migrating our family homepage with a booking system away from a Wordpress site
+to something homegrown. The main aims are</p>
 <ul>
-<li>booking system with custom rules</li>
+<li>booking system with custom rules
+<ul>
 <li>there wasn’t a reasonably priced booking platform with custom rules.</li>
-<li>track everything in git</li>
+</ul></li>
+<li>track everything in git
+<ul>
 <li>given that there isn’t that much action, it acts as a decentralized backup system in its own right.</li>
 <li>no more Wordpress and MySQL and its updates and backup problems.</li>
-<li><a href="https://astro.build/">Astro</a> as a framework</li>
+</ul></li>
+<li><a href="https://astro.build/">Astro</a> as a framework
+<ul>
 <li>that’s more of a design decision.</li>
+</ul></li>
 </ul>
-<p>See the working demo over at Cloudflare: <a href="https://astro-booking.pages.dev/" class="uri">https://astro-booking.pages.dev/</a>. The source is at <a href="https://github.com/kown7/accessible-astro-starter">GitHub</a>.</p>
+<p>See the working demo over at Cloudflare: <a href="https://astro-booking.pages.dev/" class="uri">https://astro-booking.pages.dev/</a>.
+The source is at <a href="https://github.com/kown7/accessible-astro-starter">GitHub</a>.</p>
 <h1 id="astro">Astro</h1>
 <p>It’s a static site generator (SSR) hosted at <a href="https://astro.build/" class="uri">https://astro.build/</a>.</p>
-<p>SSRs have the benefit that all content is stored in your git repository and can be moved with ease and hosted on anything, even your <a href="https://bogdanthegeek.github.io/blog/projects/vapeserver/">vape</a> if need be.</p>
-<p>Unfortunately it doesn’t (natively) support dynamic content like message boards or e.g., a booking system.</p>
+<p>SSRs have the benefit that all content is stored in your git repository and can
+be moved with ease and hosted on anything, even your
+<a href="https://bogdanthegeek.github.io/blog/projects/vapeserver/">vape</a> if need be.</p>
+<p>Unfortunately it doesn’t (natively) support dynamic content like message boards
+or e.g., a booking system.</p>
 <h1 id="cloudflare-pages">Cloudflare Pages</h1>
-<p>Free hosting for your static site. Use <em>Basic Auth</em> protected by <em>Functions</em> as described here: <a href="https://github.com/garrison/cloudflare-pages-shared-password" class="uri">https://github.com/garrison/cloudflare-pages-shared-password</a>.</p>
+<p>Free hosting for your static site. Use <em>Basic Auth</em> protected by
+<em>Functions</em> as described here:
+<a href="https://github.com/garrison/cloudflare-pages-shared-password" class="uri">https://github.com/garrison/cloudflare-pages-shared-password</a>.</p>
 <p>Functions to serverlessly process the bookings.</p>
 <h2 id="installation">Installation</h2>
-<p>Cloudflare Pages supports deploying static site generators straight from github using npm.</p>
-<p>Add a new page in <code>Compute (Workers)</code>/<code>Workers &amp; Pages</code> and import an existing git repository. Follow Cloudflares own documentation for more information.</p>
+<p>Cloudflare Pages supports deploying static site generators straight
+from github using npm.</p>
+<p>Add a new page in <code>Compute (Workers)</code>/<code>Workers &amp; Pages</code> and import an existing
+git repository. Follow Cloudflares own documentation for more information.</p>
 <p>Enable the build cache for your page.</p>
 <p>Enable the necessary actions <code>addreservation.yml</code> in your github repository.</p>
 <p>Update the location of your github repository in <code>functions/postbooking/index.ts</code>.</p>
-<p>Create a personal access token according to <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens" class="uri">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens</a> here: <a href="https://github.com/settings/personal-access-tokens" class="uri">https://github.com/settings/personal-access-tokens</a>. Save it as <code>GITHUB_TOKEN</code> in your Cloudflare settings to be able to run the workflow.</p>
+<p>Create a personal access token according to
+<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens" class="uri">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens</a>
+here: <a href="https://github.com/settings/personal-access-tokens" class="uri">https://github.com/settings/personal-access-tokens</a>.
+Save it as <code>GITHUB_TOKEN</code> in your Cloudflare settings to be able to run the
+workflow.</p>
 <p>Save it as a actions secret <code>PUSH_TOKEN</code> in github to be able to push to your github repository.</p>
 <h1 id="wordpress">Wordpress</h1>
-<p>Keep a local copy though: <a href="https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65" class="uri">https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65</a></p>
+<p>Keep a local copy though:
+<a href="https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65" class="uri">https://medium.com/@richardevcom/wordpress-development-environment-with-docker-ba52427bdd65</a></p>
     </section>
 </article>
 
