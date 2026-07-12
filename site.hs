@@ -31,6 +31,7 @@ main = hakyll $ do
                     postCtx
 
             pandocCompiler
+              >>= saveSnapshot "content"
               >>= loadAndApplyTemplate "templates/post.html"    postCtx
               >>= loadAndApplyTemplate "templates/default.html" pageCtx
               >>= relativizeUrls
@@ -69,10 +70,10 @@ main = hakyll $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAllSnapshots "posts/*" "content"
             let indexCtx =
+                    listField "posts" teaserCtx (return posts) `mappend`
                     field "recent_posts" (\_ -> recentPostList) `mappend`
-                    listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Kris's homepage"     `mappend`
                     constField "site_desc" siteDesc          `mappend`
                     defaultContext
@@ -92,6 +93,8 @@ postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     constField "site_desc" siteDesc `mappend`
     defaultContext
+
+teaserCtx = teaserField "teaser" "content" `mappend` postCtx
 
 siteDesc :: String
 siteDesc = "Ramblings of mine"
