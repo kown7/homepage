@@ -8,4 +8,4 @@ A quick introduction to the (currently beta) features in rmtoo
 * Traceability Matrix Generation
 * Excel Import/ExportPresentation PDF
 
-[Presentation PDF](/data/rmtoo-Traceability.pdf)
+[Presentation PDF](/static/rmtoo-Traceability.pdf)
