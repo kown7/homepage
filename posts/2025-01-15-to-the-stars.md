@@ -6,12 +6,12 @@ Migrating our family homepage with a booking system away from a Wordpress site
 to something homegrown. The main aims are
 
 * booking system with custom rules
-  * there wasn't a reasonably priced booking platform with custom rules.
+    * there wasn't a reasonably priced booking platform with custom rules.
 * track everything in git
-  * given that there isn't that much action, it acts as a decentralized backup system in its own right.
-  * no more Wordpress and MySQL and its updates and backup problems.
+    * given that there isn't that much action, it acts as a decentralized backup system in its own right.
+    * no more Wordpress and MySQL and its updates and backup problems.
 * [Astro](https://astro.build/) as a framework
-  * that's more of a design decision.
+    * that's more of a design decision.
 
 See the working demo over at Cloudflare: <https://astro-booking.pages.dev/>.
 The source is at [GitHub](https://github.com/kown7/accessible-astro-starter).
