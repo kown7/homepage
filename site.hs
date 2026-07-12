@@ -32,7 +32,7 @@ main = hakyll $ do
         compile $ do
             let pagesCtx =
                     field "recent_posts" (\_ -> recentPostList) `mappend`
-                    constField "title" "Blog Title"            `mappend`
+                    constField "title" "Kris's Homepage"        `mappend`
                     constField "site_desc" siteDesc          `mappend`
                     defaultContext
 
@@ -65,7 +65,7 @@ main = hakyll $ do
             let indexCtx =
                     field "recent_posts" (\_ -> recentPostList) `mappend`
                     listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Blog Title"         `mappend`
+                    constField "title" "Kris's homepage"     `mappend`
                     constField "site_desc" siteDesc          `mappend`
                     defaultContext
 
@@ -86,7 +86,7 @@ postCtx =
     defaultContext
 
 siteDesc :: String
-siteDesc = "Description for this blog"
+siteDesc = "Ramblings of mine"
 
 --------------------------------------------------------------------------------
 -- Recent Posts
