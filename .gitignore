@@ -19,3 +19,4 @@ cabal.sandbox.config
 stack.yaml.lock 
 cabal.project.local
 .HTF/
+.aider*
