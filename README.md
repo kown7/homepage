@@ -22,3 +22,7 @@ Twenty Seventeen brings your site to life with immersive featured images and sub
 For more information about Twenty Seventeen please go to https://codex.wordpress.org/Twenty_Seventeen.
 
 
+# Push
+
+sftp nordstr2@nordstroem.ch
+
