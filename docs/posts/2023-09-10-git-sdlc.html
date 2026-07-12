@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Git-Based Software Development Life-Cycle</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">Git-Based Software Development Life-Cycle</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">September 18, 2023</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Git-Based Software Development Life-Cycle</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <h1 id="introduction">Introduction</h1>
+<p>Recently, a colleague expressed concern about losing his Jira history upon completing a project, along with all the crucial (functional-safety related) documentation accumulated within it. While exporting each issue to a PDF with attachments may meet compliance requirements, it presents a nightmarish user experience and won’t easily adapt to future customer needs.</p>
+<p>During the same period, I stumbled upon <a href="https://github.com/google/git-appraise"><code>git-appraise</code></a>, sparking a compelling question: Can we replace web-based tools with solutions that store their information, history, and artifacts directly in the repository? This shift would necessitate replacing several critical tools for our use cases:</p>
+<ul>
+<li><em>Jira</em>: For issue tracking and general project management</li>
+<li><em>Confluence</em>: As our wiki and documentation platform</li>
+<li><em>Bamboo</em>: As our CI/CD server</li>
+<li><em>Artifactory</em>: For storing (Docker) images and other CI/CD artifacts</li>
+<li><em>Gerrit</em>: For code reviews</li>
+</ul>
+<p>It’s important to <em>emphasize</em> that the replacement itself isn’t the core focus here – I recognize the challenge of persuading our customers to embrace command-line interfaces over familiar web UIs. The <em>primary objective</em> lies in centralizing all relevant data alongside the code.</p>
+<p><a href="https://news.ycombinator.com/item?id=37459288">HN link-back</a>.</p>
+<h1 id="jira">Jira</h1>
+<h2 id="use-cases">Use Cases</h2>
+<p>I figure Jira is at its core an issue tracker with a set of boards (kanban, backlog, …). The issue can have various status flows attached to them.</p>
+<p>Here’s an incomplete list of responsabilities/use-cases propped upon Jira by ingenious PMO that need to be addressed.</p>
+<ul>
+<li>(Kanban) Board / Backlog</li>
+<li>Release Planning</li>
+<li>Earned Value / Spent Effort tracking and planning</li>
+<li>Release Notes</li>
+<li>Requirements/Bugs discussions
+<ul>
+<li>Attachments. It seems to be a relevant use-case to store attachments with issues.</li>
+</ul></li>
+</ul>
+<p>⚠ Question for the readers: what other use-cases have been implemented with it?</p>
+<h2 id="issuebug-tracking">Issue/Bug Tracking</h2>
+<p>For the basic use-case of tracking <em>Issues</em> and <em>Bugs</em> is covered by either of the following tools. Their respective advantages and downsides are addressed.</p>
+<h3 id="git-issue">git issue</h3>
+<p>There’s <a href="https://github.com/dspinellis/git-issue">git-issue</a> with an introductory video at <a href="https://archive.fosdem.org/2020/schedule/event/git_issue_management/">FOSDEM’20</a>. It allows to do issue tracking in a git repository.</p>
+<p>As a UI it supports syncing to <em>Gitlab</em> and <em>GitHub</em>. There their web interface can be used instead.</p>
+<h3 id="git-bug">git bug</h3>
+<p>The tool <a href="https://github.com/MichaelMure/git-bug">git-bug</a> seems to support the same basic features. The biggest drawback seem to be the lack of attachments to issues. On the plus side there are multiple UI front ends, e.g., terminal, web, &amp;c.</p>
+<p>There’s even a <a href="https://github.com/MichaelMure/git-bug/pull/843">board</a> under development.</p>
+<h2 id="release-planning">Release Planning</h2>
+<p>In Jira one can define the release for which the issue will be fixed. Then all issues that are part of the release show up in the release page of that specific release. With this mechanism one can check if all issues that are planned for a release are done.</p>
+<h3 id="release-notes">Release Notes</h3>
+<p>Storing release information in the respective issues sounds compelling. It’s not a dedicated tool for the task. The release notes need to be stiched together manually.</p>
+<p>As an example, have a look at <a href="https://github.com/nedbat/scriv">scriv</a>.</p>
+<h2 id="earned-value-effort-spent">Earned Value / Effort Spent</h2>
+<p>This is supported by <code>git-issue</code>. However it’s not supported by <code>git-bug</code>.</p>
+<p>If the information needs to be duplicated in your time-tracking software, I suggest you track the information there or your project design Excel file. There’s also <em>Projects</em> for the more serious project managers.</p>
+<h2 id="boards">Boards</h2>
+<p>Boards are used to organise issues, bugs, and workflows. Boards only make sense if there’s a proper UI. Hence the only the state needs to be synced.</p>
+<p>Support for boards is currently under development in <code>git-bug</code>. Whether this information can be synced is rather unclear. However upon completion of a (sub-)project this information is rather moot.</p>
+<h2 id="requirements">Requirements</h2>
+<p>Missing from the above list is a suitable tool to track requirements. I’ve heard people do this in Jira. This brings us back to the above problem and probably shouldn’t be done anyways. Including requirements we should have a complete UNIX philosophy inspired ALM “tool”.</p>
+<p>See the following free and open options:</p>
+<ul>
+<li><a href="https://sphinx-needs.readthedocs.io/en/latest/">sphinx-needs</a></li>
+<li><a href="http://rmtoo.florath.net/">rmtoo</a></li>
+<li><a href="https://doorstop.readthedocs.io/en/latest/">doorstop</a>.</li>
+<li>there are others; give it a go in your favourite search engine.</li>
+</ul>
+<h1 id="confluence">Confluence</h1>
+<p>It’s about the only wiki out there with a <a href="https://en.wikipedia.org/wiki/Collaborative_real-time_editor">collaborative real-time WYSIWYG editor</a>. The only alternative out there is probably Office365 and <a href="https://www.notion.so/help/collaborate-within-a-workspace#real-time-collaboration">Notion</a>. VCS tracked markdown wikis are plentiful, e.g., GitHub uses that for their Wikis.</p>
+<p>Locally editing and live-preview is probably a solved problem, e.g., [Gollum] (https://github.com/gollum/gollum). Merely editing markdown see, e.g., (https://typora.io/).</p>
+<p>⚠ Linking to issues from the wiki has been used successfully. This can be emulated by creating links to the git-bug ID. This is however not very transferrable to any web UI.</p>
+<h1 id="bamboo">Bamboo</h1>
+<p>Alternatives to centrally hosted CI/CD tooling should be available at every turn. Jenkins certainly provides everything, the hosting requires some effort though to keep up-to-date.</p>
+<p>We assume our builds and tests are going to be reproducible. Then we should be able to run the tests, builds, &amp;c. locally without a centralized infrastructure.</p>
+<p><a href="https://github.com/nektos/act">Act</a> allows us to run our CI/CD pipeline locally. The syntax promises to be <em>GitHub Actions</em> compatible.</p>
+<h1 id="artifactory">Artifactory</h1>
+<p>It is questionable whether this tool can be replaced. We need some form of repository for the OS abstraction. Be that docker, podman, or some other images. These images can’t be reasonably stored in a git repository.</p>
+<p>If there are no Docker artifacts being generated, the artifacts can be pushed to the repository using git-lfs. A method to avoid build-loops must be devised if a CI is used.</p>
+<h1 id="gerrit">Gerrit</h1>
+<p>With <a href="https://github.com/google/git-appraise"><code>git-appraise</code></a> we can do code reviews in the console. The results are also stored under revision control.</p>
+<p>There’s even a read-only <a href="https://github.com/google/git-appraise-web">UI</a>.</p>
+<h1 id="safety">Safety</h1>
+<p>An important aspect that hasn’t been discussed is access management. Everyone with access to the repository can see all data therein. This might be problem, e.g., if your developers aren’t supposed to have insight into all wiki pages.</p>
+<p>This can realisitcally only be solved by using submodules that separate those concerns.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>It should be possible to do the full workflow on the console.</p>
+<p>However, we can leverage the existing web UI for convenience. We need to be aware of the synchronization tools’ limitations. It probably pays dividends to have plan for <em>all</em> documentation from the beginning. Putting everything into Jira doesn’t sound a like good plan.</p>
+<p>There might even be some financial gains to be had by only paying for tools while actually using them.</p>
+<h2 id="missing-key-features">Missing Key Features</h2>
+<ul>
+<li>Putting attachements on issues in Jira will not transfer at the moment.</li>
+<li>Confluence probably doesn’t export gracefully either.</li>
+</ul>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+<li><a href="../posts/2015-02-21-autostart-vcxsrv.html" title="Autostart VcXsrv">Autostart VcXsrv</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>

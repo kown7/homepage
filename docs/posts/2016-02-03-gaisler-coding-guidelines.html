@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gaisler Coding Guidelines</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">Gaisler Coding Guidelines</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">February  3, 2016</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Gaisler Coding Guidelines</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <p>The <a href="http://www.gaisler.com/doc/vhdl2proc.pdf">Gaisler coding guidelines</a> starts with a description of a hideously coded latch with some data processing as an example as why not to code in a data-flow manner. I strongly agree, as the example has further bad naming, it splits signals that appear to belong together et c. Furthermore the statements could be written as one-liners without any process construct around them.</p>
+<p>The goals of Gaisler Guidelines have been stated as follows</p>
+<ul>
+<li>Provide uniform algorithm encoding</li>
+<li>Increase abstraction level</li>
+<li>Improve readability</li>
+<li>Clearly identify sequential logic</li>
+<li>Simplify debugging</li>
+<li>Improve simulation speed</li>
+<li>Provide one model for both synthesis and simulation.</li>
+</ul>
+<p>In the following sections I will address each point where I disagree with the design-guideline’s authors.</p>
+<h1 id="provide-uniform-algorithm-encoding">Provide uniform algorithm encoding</h1>
+<p>Will this is essentially holds, it basically forces the designer to encode the algorithm in one process; the second is only to register data. While this will create uniformity it also forces the algorithm in a given form instead of using the best form the language can offer.</p>
+<p>In order to save routing resources for FPGA designs it is <em>strongly</em> recommended to avoid clearing/resetting signals that do not require it, e.g., data signals with a valid signal. At least for the Xilinx toolchain this can be achieved by resetting the signals to a don’t-care value ‘-‘. This solution clearly is not expected to work with other vendors.</p>
+<p>It might furthermore be prohibitive of simple refactoring if the combinatorial process grows excessively large. Extracting signals from a large combinatorial process into a new entity/block can have dangerous side-effects. If functionality that doesn’t necessarily belong to the same entity, e.g., due to refactoring, still ended up together, it can far more easily be split up if it’s been written in separate processes.</p>
+<h1 id="increase-abstraction-level">Increase abstraction level</h1>
+<p>Only for code written in forms as given in the example. Any self-respecting designer doesn’t do this to him- or herself or the verification/QA engineers. Always use the highest level of abstraction suitable and supported by the toolchain, I .e, the future might finally bring high-level synthesis.</p>
+<h1 id="improve-readability">Improve readability</h1>
+<p>If we come to think of processes as functions in regular programming languages, then they should do one thing and one thing only [1]. This is a very reasonable approach as it otherwise groups functionality that doesn’t need to be together.</p>
+<p>By design, output assignments are part of the combinatorial process. This does not help readability at all and should be avoided. Put output assignments at the top for all outputs. As such, it is clearly visible of what type of FSM this particular entity is made off. Mealy-type are to be avoided if possible.</p>
+<p>Nesting output records one or two levels deep might make sense when properly named. If, as written in those guidelines, records are nested as deep as the design testing becomes difficult. Updates to the record are not automatically adjusted for in any test benches and no compiler will complain about missing initialization.</p>
+<p>Creating records should only be done if signals travel the hierarchy unchanged for more than one, maybe two levels. Even then, unnecessary nesting of signals that do not belong together should be avoided.</p>
+<p>Be wary of the God-Entity equivalent to the God-Class in [1].</p>
+<h1 id="clearly-identify-sequential-logic">Clearly identify sequential logic</h1>
+<p>Yes, but at what cost? If output assignments are also tossed in for good measure we cannot see any more of what type the FSM is built, i.e., Mealy or Moore. Separately assigning the output ports reduces to chance of unwanted combinatorial paths. Always aim for a Medvedev FSM.</p>
+<h1 id="simplify-debugging">Simplify debugging</h1>
+<p>I would not agree. At least older Modelsim tools have a hard time tracking sources for drive conflicts as it always displays the entire record. They also have troubles identifying FSM encoded with the proposed method. This is not helpful for verification.</p>
+<h1 id="improve-simulation-speed">Improve simulation speed</h1>
+<p>Have all signals in one process will actually diminish simulation performance as an event in a signal in the sensitivity list will compute the entire record anew. Smaller records/processes with smaller sensitivity lists are expected to create lesser events and as such speed up simulation.</p>
+<p>It is speculated that the entire records will be saved by Modelsim even if only a record’s subset is of particular interest.</p>
+<h1 id="provide-one-model-for-both-synthesis-and-simulation">Provide one model for both synthesis and simulation</h1>
+<p>It is expected that the designer tests its units for synthesis errors as a part of unit-verification. Golden-model or stimuli generation is a different story and has been covered in other places by experienced verification gurus.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>From my perspective, there are two things to be taken from this coding guidelines</p>
+<ul>
+<li>Group signals that truly belong together in a record and handle them in two processes. If possible, create a Medvedev FSM and connect the record directly to the output signals.</li>
+<li>Create output records if they make sense, but do not nest if signals don’t clearly belong together. Be wary of nesting deeper than one sub-record. The record can then be routed to other entities and still benefit from changing the record without changing port definition in a large number of entities.</li>
+</ul>
+<p>As final word: certainly more time is spent verifying designs than actually writing the code. Hence any efficiency gained by writing compact code can be quickly lost in the verification phase, i.e., trying to curb VHDL’s inherent verbosity can quickly backfire.</p>
+<p>[1] <a href="https://cleancoders.com/landing">R. Martin, Clean Code</a>(<a href="http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">amazon</a>)</p>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+<li><a href="../posts/2015-02-21-autostart-vcxsrv.html" title="Autostart VcXsrv">Autostart VcXsrv</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>

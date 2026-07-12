@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Python FizzBuzz with AST</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">Python FizzBuzz with AST</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">December  4, 2021</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Python FizzBuzz with AST</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <p>An attempt to solve FizzBuzz with 100 <code>print()</code> statement—with extra steps.</p>
+<p>Inspiration came from the first chapter in <a href="https://joelgrus.com/2020/06/06/ten-essays-on-fizz-buzz/">this book</a>. Do it with Python’s abstract syntax tree.</p>
+<!--more-->
+<p></p>
+<p>This function creates an <code>ast.Module</code> to which all print statements are appended. These statements are created and extracted on the first couple of lines.</p>
+<p>The print-statements are appended in the most trivial way possible with if/elif/else block.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> copy
+<span class="im">import</span> ast
+
+fizz <span class="op">=</span> ast.parse(<span class="st">&quot;print('fizz')&quot;</span>).body[<span class="dv">0</span>]
+buzz <span class="op">=</span> ast.parse(<span class="st">&quot;print('buzz')&quot;</span>).body[<span class="dv">0</span>]
+fizzbuzz <span class="op">=</span> ast.parse(<span class="st">&quot;print('fizzbuzz')&quot;</span>).body[<span class="dv">0</span>]
+<span class="co"># Three alone is an expression; not _ast.Constant</span>
+constant <span class="op">=</span> ast.parse(<span class="st">'3'</span>).body[<span class="dv">0</span>].value
+ast_print <span class="op">=</span> ast.parse(<span class="st">'print()'</span>).body[<span class="dv">0</span>]
+
+
+<span class="kw">def</span> create_ast():
+    print_stmt <span class="op">=</span> copy.deepcopy(ast_print)
+    print_stmt.value.args.append(<span class="va">None</span>)
+    cur_const <span class="op">=</span> copy.deepcopy(constant)
+
+    i <span class="op">=</span> ast.Module()
+    i.type_ignores <span class="op">=</span> []
+    i.body <span class="op">=</span> []
+    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):
+        <span class="cf">if</span> <span class="kw">not</span> j <span class="op">%</span> <span class="dv">15</span>:
+            i.body.append(fizzbuzz)
+        <span class="cf">elif</span> <span class="kw">not</span> j <span class="op">%</span> <span class="dv">3</span>:
+            i.body.append(fizz)
+        <span class="cf">elif</span> <span class="kw">not</span> j <span class="op">%</span> <span class="dv">5</span>:
+            i.body.append(buzz)
+        <span class="cf">else</span>:
+            cur_const.value <span class="op">=</span> j
+            print_stmt.value.args[<span class="dv">0</span>] <span class="op">=</span> cur_const
+            <span class="co"># Create a deep-copy, otherwise it's all by reference</span>
+            i.body.append(copy.deepcopy(print_stmt))
+    ast.fix_missing_locations(i)
+    <span class="cf">return</span> i
+
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">'__main__'</span>:
+    <span class="bu">exec</span>(<span class="bu">compile</span>(create_ast(), filename<span class="op">=</span><span class="st">&quot;&lt;ast&gt;&quot;</span>, mode<span class="op">=</span><span class="st">&quot;exec&quot;</span>))</code></pre></div>
+<h1 id="references">References</h1>
+<p>https://greentreesnakes.readthedocs.io/</p>
+<h1 id="open-questions">Open Questions</h1>
+<ul>
+<li>Is it possible to have self-modifying code in Python?
+<ul>
+<li>The AST isn’t growing but looping and modifying itself.</li>
+</ul></li>
+</ul>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+<li><a href="../posts/2015-02-21-autostart-vcxsrv.html" title="Autostart VcXsrv">Autostart VcXsrv</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>

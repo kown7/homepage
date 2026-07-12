@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Adventures in TikZ-Land</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">Adventures in TikZ-Land</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">April 30, 2024</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">Adventures in TikZ-Land</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <h1 id="introduction">Introduction</h1>
+<p>There is a certain desire, e.g., <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> and more, to embed non-vector graphics in the source document for a LaTeX document.</p>
+<p>I haven’t yet tried <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> but it should do the for most use-cases, but it requires an external command to do its magic.</p>
+<p>My idead was to use TikZ to draw a bitmap with single aquares. It’s not the most efficient, but for spares images it could be good enough.</p>
+<hr />
+<h1 id="working-example">Working Example</h1>
+<p>There’s not a lot to go through, the solution was proposed basically proposed here<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<h2 id="overall-latex-file">Overall LaTeX File</h2>
+<p>The minimal working examples (MWE) for a TikZ image follows. The external file <code>mwe2h.tex</code> defines the <code>\pixels</code>.</p>
+<div class="sourceCode"><pre class="sourceCode tex"><code class="sourceCode latex"><span class="bu">\documentclass</span>{<span class="ex">article</span>}
+<span class="bu">\usepackage</span>{<span class="ex">tikz</span>}
+<span class="bu">\usepackage</span>{<span class="ex">tikzscale</span>}
+
+<span class="fu">\input</span>{mwe2h}
+
+<span class="kw">\begin</span>{<span class="ex">document</span>}
+
+Now whenever we want to create a TikZ diagram we need to use the tikzpicture environment.
+
+<span class="kw">\begin</span>{<span class="ex">figure</span>}
+<span class="fu">\centering</span>
+<span class="fu">\resizebox</span>{7cm}{!}{<span class="co">%</span>
+<span class="kw">\begin</span>{<span class="ex">tikzpicture</span>}
+  <span class="fu">\foreach</span> <span class="fu">\line</span> [count=<span class="fu">\y</span>] in <span class="fu">\pixels</span> {
+    <span class="fu">\foreach</span> <span class="fu">\pix</span> [count=<span class="fu">\x</span>] in <span class="fu">\line</span> {
+      <span class="co">%\draw[fill=pixel \pix] (\x,-\y) rectangle +(1,1);</span>
+	    <span class="fu">\filldraw</span>[fill=c<span class="fu">\pix</span>, draw=c<span class="fu">\pix</span>] (<span class="fu">\x</span>,-<span class="fu">\y</span>) rectangle +(1,1);
+    }
+  }
+<span class="kw">\end</span>{<span class="ex">tikzpicture</span>}
+}
+<span class="kw">\end</span>{<span class="ex">figure</span>}
+
+<span class="kw">\end</span>{<span class="ex">document</span>}</code></pre></div>
+<h2 id="transforming-the-picture">Transforming the Picture</h2>
+<p>The <code>.png</code> image is converted to a <a href="https://netpbm.sourceforge.net/doc/ppm.html">PPM</a> image using run-of-the-mill <code>convert</code> from ImageMagick. The following Python script then turns that into a LaTeX array.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&quot;&quot;&quot;This is a crude hack to convert ppm files to tikz&quot;&quot;&quot;</span>
+<span class="im">import</span> hashlib
+<span class="im">from</span> collections <span class="im">import</span> defaultdict
+
+
+<span class="kw">def</span> parse_ppm_file(file_path):
+    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'rb'</span>) <span class="im">as</span> ppm_file:
+        header <span class="op">=</span> ppm_file.readline()
+        width, height <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, ppm_file.readline().split())
+        max_val <span class="op">=</span> <span class="bu">int</span>(ppm_file.readline())
+
+        data <span class="op">=</span> ppm_file.read()
+
+    pixel_values <span class="op">=</span> []
+    colours <span class="op">=</span> defaultdict(<span class="bu">int</span>)
+    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(data), <span class="dv">3</span>):
+        r <span class="op">=</span> data[i]
+        g <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">1</span>]
+        b <span class="op">=</span> data[i <span class="op">+</span> <span class="dv">2</span>]
+        colours[(r,g,b)] <span class="op">+=</span> <span class="dv">1</span>
+        pixel_values.append((r, g, b))
+
+    <span class="cf">return</span> pixel_values, width, height, colours
+
+
+<span class="kw">def</span> generate_tikz_file(file_path, pixels, width, height, colourmap):
+    <span class="cf">with</span> <span class="bu">open</span>(file_path <span class="op">+</span> <span class="st">&quot;.tex&quot;</span>, <span class="st">'w'</span>) <span class="im">as</span> tikz_file:
+        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">begin</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+        maxkey <span class="op">=</span> <span class="bu">max</span>(colourmap, key<span class="op">=</span>colourmap.get)
+        maxval <span class="op">=</span> colourmap[maxkey]
+        tikz_file.write(<span class="st">&quot;% max value: </span><span class="sc">{}</span><span class="st"> </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(maxkey, maxval))
+        <span class="cf">for</span> colours, numbers <span class="kw">in</span> colourmap.items():
+            <span class="cf">if</span> numbers:
+                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(colours[<span class="dv">0</span>], colours[<span class="dv">1</span>], colours[<span class="dv">2</span>])
+                key <span class="op">=</span> htmlcolour
+                tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">definecolor</span><span class="sc">{{</span><span class="st">c</span><span class="sc">{}}}{{</span><span class="st">HTML</span><span class="sc">}}{{{}}}</span><span class="st"> % </span><span class="sc">{}</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(key, htmlcolour, numbers))
+        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">def</span><span class="ch">\\</span><span class="st">pixels{</span><span class="ch">\n</span><span class="st">&quot;</span>)
+        <span class="cf">for</span> y <span class="kw">in</span> <span class="bu">range</span>(height):
+            xlist <span class="op">=</span> []
+            <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(width):
+                <span class="co"># if pixels[y * width + x] == maxkey:</span>
+                <span class="co">#     continue</span>
+                r, g, b <span class="op">=</span> pixels[y <span class="op">*</span> width <span class="op">+</span> x]
+                htmlcolour <span class="op">=</span> <span class="st">&quot;</span><span class="sc">{:02x}{:02x}{:02x}</span><span class="st">&quot;</span>.<span class="bu">format</span>(r, g, b)
+                key <span class="op">=</span> htmlcolour
+                <span class="co"># tikz_file.write(&quot;\\filldraw[fill=c{}, draw=c{}] ({},-{}) rectangle +(1,1);\n&quot;.format(key, key, x, y))</span>
+                xlist.append(htmlcolour)
+            tikz_file.write(<span class="st">&quot;</span><span class="sc">{{{}}}</span><span class="st">,</span><span class="ch">\n</span><span class="st">&quot;</span>.<span class="bu">format</span>(<span class="st">&quot;,&quot;</span>.join(xlist)))
+        tikz_file.write(<span class="st">&quot;}</span><span class="ch">\n</span><span class="st">&quot;</span>)
+        tikz_file.write(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">end</span><span class="sc">{tikzpicture}</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+<span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:
+    <span class="im">import</span> sys
+
+    <span class="cf">if</span> <span class="bu">len</span>(sys.argv) <span class="op">!=</span> <span class="dv">2</span>:
+        <span class="bu">print</span>(<span class="st">&quot;Usage: python parse_ppm.py &lt;filename&gt;&quot;</span>)
+        sys.exit(<span class="dv">1</span>)
+
+    file_path <span class="op">=</span> sys.argv[<span class="dv">1</span>]
+    pixels, width, height, colourmap <span class="op">=</span> parse_ppm_file(file_path)
+
+    tikz_file_path <span class="op">=</span> <span class="st">&quot;.&quot;</span>.join(file_path.split(<span class="st">'.'</span>)[:<span class="op">-</span><span class="dv">1</span>])  <span class="co"># Remove the file extension</span>
+    generate_tikz_file(tikz_file_path, pixels, width, height, colourmap)</code></pre></div>
+<h1 id="alternatives">Alternatives</h1>
+<h2 id="pxpic">PxPic</h2>
+<p>https://ctan.org/pkg/pxpic</p>
+<h2 id="lines">Lines</h2>
+<p>It will reduce the size of the result if just was used<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. That doesn’t look particularly good though.</p>
+<h1 id="post-script">Post-Script</h1>
+<p>Reading through the references mentioned hereafter, it seems as if EPS files acould be embedded. Another item on the backlog.</p>
+<h1 id="summary">Summary</h1>
+<p>This works, but barely and doesn’t solve the problem to a adequate degree.</p>
+<p>Other solutions are needed.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>https://tex.stackexchange.com/questions/21541/embedding-images-with-an-encoding-algorithm<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>https://tex.stackexchange.com/questions/208819/embedding-images-in-tex-file-as-base64-strings<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>https://github.com/zerotoc/pdfinlimg<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>https://tex.stackexchange.com/a/157134 in https://tex.stackexchange.com/questions/157080/can-tikz-create-pixel-art-images<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>https://web.archive.org/web/20211022212446/http://alexisfles.ch/en/latex/pixelart.html<a href="#fnref6">↩</a></p></li>
+</ol>
+</div>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+<li><a href="../posts/2015-02-21-autostart-vcxsrv.html" title="Autostart VcXsrv">Autostart VcXsrv</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>

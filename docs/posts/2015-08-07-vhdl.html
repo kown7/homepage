@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>VHDL bits and pieces</title>
+        <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+        <link rel="stylesheet" href="../css/style.css" />
+        <link rel="stylesheet" href="../css/googlefont.css" />
+	<!-- <link href="//s.w.org/wp-includes/css/dashicons.css?20160504" rel="stylesheet" type="text/css"> -->
+
+    </head>
+    <body class="home blog hfeed has-header-image has-sidebar colors-light">
+      <div id="page" class="site">
+          <header id="masthead" class="site-header" role="banner">
+              <div class="custom-header" style="margin-bottom: 0px;">
+
+	              <div class="custom-header-media">
+	                <div id="wp-custom-header" class="wp-custom-header"><img src="../images/P1090495.jpg" width="2000" height="1200" alt="Theme Preview"></div>		</div>
+
+	                    <div class="site-branding" style="margin-bottom: 0px;">
+	                        <div class="wrap">
+
+	                          <div class="site-branding-text">
+					          <h1 class="site-title"><a href="#link" rel="home">VHDL bits and pieces</a></h1>
+
+						          <p class="site-description">Ramblings of mine</p>
+				                    </div><!-- .site-branding-text -->
+
+				                      <a href="#content" class="menu-scroll-down"><svg class="icon icon-arrow-right" aria-hidden="true" role="img"> <use href="#icon-arrow-right" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use> </svg><span class="screen-reader-text">Scroll down to content</span></a>
+
+	                        </div><!-- .wrap -->
+                      </div><!-- .site-branding -->
+
+              </div>
+        </header>
+
+        <main role="main" class="site-content-contain">
+            <div id="content" class="site-content">
+            <div class="wrap">
+                <header class="page-header">
+  <h2 class="page-title"></h2>
+</header>
+<div id="primary" class="content-area">
+
+<article class="post type-post status-publish format-standard hentry">
+    <header class="entry-header">
+        <div class="entry-meta">
+            <span class="screen-reader-text">Posted on</span>
+            <a href="#" rel="bookmark">
+                <time class="entry-date published updated" datetime="2008-06-20T20:06:53+00:00">August  7, 2015</time></a>
+        </div>
+        <h3 class="entry-title"><a href="#" rel="bookmark">VHDL bits and pieces</a></h3>
+        
+    </header>
+    <section class="entry-content">
+        <p>Things I’ve discovered and considered relevant at the time.</p>
+<h1 id="access-keyword">Access Keyword</h1>
+<p>One way to handle variable length strings is to use access pointers as defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
+<p>Assigning a new string goes as follows.</p>
+<pre><code>type str_ptr is access string;
+variable myString str_ptr;
+myString := string'(&quot;hello world&quot;);</code></pre>
+<h1 id="conditional-writeline">Conditional Writeline</h1>
+<p>or how to handle lines written as debug messages in case they’re not needed. We don’t want to create memory leaks, don’t we?</p>
+<pre><code>variable lineOut : line;
+if someBoolean then
+  write(fh, lineOut);
+  else
+    deallocate(lineOut);
+    end if;</code></pre>
+<p>The source is <a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
+<h1 id="delay-model">Delay Model</h1>
+<p>The VHDL delay model has a few quirks when it comes to delayed assignments. If in the following examples</p>
+<pre><code>q1&lt;=r nor nq after 1ns;
+q2&lt;=transport r nor nq after 1ns;</code></pre>
+<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A more thorough explanation can be found <a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
+<h2 id="vhdl-bits-and-pieces">VHDL bits and pieces</h2>
+<p>Things I’ve discovered and considered relevant at the time.</p>
+<h1 id="access-keyword-1">Access Keyword</h1>
+<p>One way to handle variable length strings is to use access pointers as defined here: http://vhdl.renerta.com/mobile/source/vhd00001.htm</p>
+<p>Assigning a new string goes as follows.</p>
+<pre><code>type str_ptr is access string;
+variable myString str_ptr;
+myString := string'(&quot;hello world&quot;);</code></pre>
+<h1 id="conditional-writeline-1">Conditional Writeline</h1>
+<p>or how to handle lines written as debug messages in case they’re not needed. We don’t want to create memory leaks, don’t we?</p>
+<pre><code>variable lineOut : line;
+if someBoolean then
+  write(fh, lineOut);
+  else
+    deallocate(lineOut);
+    end if;</code></pre>
+<p>The source is <a href="http://www.thecodingforums.com/threads/concatenate-textio-line-type.589899/">here</a>.</p>
+<h1 id="delay-model-1">Delay Model</h1>
+<p>The VHDL delay model has a few quirks when it comes to delayed assignments. If in the following examples</p>
+<pre><code>q1&lt;=r nor nq after 1ns;
+q2&lt;=transport r nor nq after 1ns;</code></pre>
+<p>nq has a spike shorter than 1 nanosecond, only q2 will see the change. A more thorough explanation can be found <a href="http://www.gmvhdl.com/delay.htm">here</a>.</p>
+    </section>
+</article>
+
+</div>
+                <aside id="secondary" class="widget-area" role="complementary" aria-label="Blog Sidebar">
+	<section id="search-3" class="widget widget_search">
+
+    <!-- <form role="search" method="get" class="search-form" action="https://wp-themes.com/"> -->
+	  <!--   <label for="search-form-5a315d71e7d90"> -->
+		<!--     <span class="screen-reader-text">Search for:</span> -->
+	  <!--   </label> -->
+	  <!--   <input type="search" id="search-form-5a315d71e7d90" class="search-field" placeholder="Search …" value="" name="s"> -->
+	  <!--     <button type="submit" class="search-submit"><svg class="icon icon-search" aria-hidden="true" role="img"> <use href="#icon-search" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-search"></use> </svg><span class="screen-reader-text">Search</span></button> -->
+    <!--   </form> -->
+    <!-- </section> -->
+    <section id="archives-3" class="widget widget_archive">
+      <h2 class="widget-title">Pages</h2>
+      <ul>
+        <li><a href="../">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../archive.html">Archive</a></li>
+      </ul>
+    </section>
+
+    <section id="recent-posts-3" class="widget widget_recent_entries">
+      <h2 class="widget-title">Recent Posts</h2>
+      <ul>
+        <li><a href="../posts/2024-04-30-adventures-in-tikz-land.html" title="Adventures in TikZ-Land">Adventures in TikZ-Land</a></li>
+<li><a href="../posts/2023-09-10-git-sdlc.html" title="Git-Based Software Development Life-Cycle">Git-Based Software Development Life-Cycle</a></li>
+<li><a href="../posts/2021-12-04-pyast.html" title="Python FizzBuzz with AST">Python FizzBuzz with AST</a></li>
+<li><a href="../posts/2019-11-29-unicode-characters.html" title="Unicode Characters">Unicode Characters</a></li>
+<li><a href="../posts/2019-02-14-rmtoo-tracemat.html" title="Open Source Requirements Tracking – Traceability Matrix">Open Source Requirements Tracking – Traceability Matrix</a></li>
+<li><a href="../posts/2016-12-08-ping6.html" title="ping6 DAD problem">ping6 DAD problem</a></li>
+<li><a href="../posts/2016-02-03-gaisler-coding-guidelines.html" title="Gaisler Coding Guidelines">Gaisler Coding Guidelines</a></li>
+<li><a href="../posts/2015-08-07-vhdl.html" title="VHDL bits and pieces">VHDL bits and pieces</a></li>
+<li><a href="../posts/2015-02-21-autostart-vcxsrv.html" title="Autostart VcXsrv">Autostart VcXsrv</a></li>
+
+		  </ul>
+		</section>
+
+  <!--   <section id="categories-3" class="widget widget_categories"> -->
+  <!--     <h2 class="widget-title">Categories</h2>		<ul> -->
+	<!--     <li class="cat-item cat-item-6"> -->
+  <!--       <a href="#">First Child Category</a> -->
+  <!--     </li> -->
+	<!-- 	</ul> -->
+  <!--   </section> -->
+  </aside>
+
+            </div>
+            </div>
+
+          <footer id="colophon" class="site-footer" role="contentinfo">
+            <div class="wrap">
+              <div class="site-info">
+              Site proudly generated by
+              <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+              Theme provided by <a href="http://github.com/katychuang.com/wp-twentyseventeen">katychuang </a>
+              </div>
+            </div>
+          </footer>
+
+        </main>
+      </div>
+    </body>
+</html>
