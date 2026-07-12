@@ -11,7 +11,7 @@ Note that this theme has specific features which requires beyond the default Hak
 ```
 stack build
 stack exec site build
-stack exec site watch
+stack exec site watch &
 ```
 
 
