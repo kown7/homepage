@@ -17,6 +17,8 @@ The most commonly used Unicode characters.
 ≠	NOT EQUAL TO
 ±       plus-minus
 ⋅	DOT OPERATOR
+∧	LOGICAL AND
+∨	LOGICAL OR
 ```
 
 See also [Wikipedia](https://de.wikipedia.org/wiki/Unicodeblock_Mathematische_Operatoren) for more operators.
