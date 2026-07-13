@@ -13,7 +13,7 @@ last decade or so.
 
 Have a plan, do something else and update the plan. Drifting is for your twenties, but do drift if you can afford it.
 
-[Learn, earn or quit](https://darshakrana.medium.com/the-best-career-advice-i-ever-received-learn-or-earn-or-quit-3750c7c3be8f)!
+[Learn, earn or quit by Gary Tan](https://www.youtube.com/watch?v=eLelgy5zRv4)!
 
 
 ## Selection
