@@ -68,7 +68,8 @@ Have a plan, do something else and update the plan. Drifting is for your twentie
 * [Defensive Communication](https://www.jstor.org/stable/42574118)
     * Workplace communication that reduces defensiveness.
 * [The Problem with “Writing is Thinking” - Animalz](https://www.animalz.co/blog/the-problem-with-writing-is-thinking)
-    * Professional writing advice for clearer communication.
+    * Professional writing advice for clearer communication. Related and important: [BLUF](https://www.animalz.co/blog/bottom-line-up-front)
+    * Paul Grahams original point: <https://paulgraham.com/writes.html>
 
 ## Learning and professional development
 
