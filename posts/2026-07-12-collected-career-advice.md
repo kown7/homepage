@@ -70,6 +70,8 @@ Have a plan, do something else and update the plan. Drifting is for your twentie
 * [The Problem with “Writing is Thinking” - Animalz](https://www.animalz.co/blog/the-problem-with-writing-is-thinking)
     * Professional writing advice for clearer communication. Related and important: [BLUF](https://www.animalz.co/blog/bottom-line-up-front)
     * Paul Grahams original point: <https://paulgraham.com/writes.html>
+* [The social physics of conversation: Communication patterns matter](https://andiroberts.com/citizenship/the-social-physics-of-conversation-citizenship-leadership)
+    * Informal group interactions and their impact on performance.
 
 ## Learning and professional development
 
