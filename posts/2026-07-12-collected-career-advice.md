@@ -40,8 +40,8 @@ Have a plan, do something else and update the plan. Drifting is for your twentie
 
 * [James Shore: A Useful Productivity Measure](https://www.jamesshore.com/v2/blog/2024/a-useful-productivity-measure)
 * [Leadership Is A Hell Of A Drug — Ludicity](https://ludic.mataroa.blog/blog/leadership-is-a-hell-of-a-drug/)
-* Something weird happens to companies when they hit 150 people
-    * Workplace scaling and culture-change observations.
+* [Something weird happens to companies when they hit 150 people](https://news.ycombinator.com/item?id=35206141)
+    * Workplace scaling and culture-change observations from HN thread.
 
 ## Office Politics
 
