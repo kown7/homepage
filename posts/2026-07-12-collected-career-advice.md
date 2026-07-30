@@ -42,6 +42,7 @@ Have a plan, do something else and update the plan. Drifting is for your twentie
 * [Leadership Is A Hell Of A Drug — Ludicity](https://ludic.mataroa.blog/blog/leadership-is-a-hell-of-a-drug/)
 * [Something weird happens to companies when they hit 150 people](https://news.ycombinator.com/item?id=35206141)
     * Workplace scaling and culture-change observations from HN thread.
+* [The bottleneck might be the air in the room ](https://blog.mikebowler.ca/2026/07/03/co2-and-decision-making/)
 
 ## Office Politics
 
