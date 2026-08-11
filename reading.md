@@ -48,6 +48,10 @@ for even more.
 * [Building products – Things I wish I knew earlier when I started building products](https://amiltonpaglia.com/writing/building-products).
 * [Make popular OSS projects](https://skerritt.blog/make-popular-open-source-projects/)
 
+## Management
+
+* [Measuring Developer Productivity](https://newsletter.kentbeck.com/p/measuring-developer-productivity)
+
 ## AI
 
 <https://medium.com/@karpathy/software-2-0-a64152b37c35>
