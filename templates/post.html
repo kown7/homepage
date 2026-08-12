@@ -16,6 +16,12 @@
         $endif$
     </header>
     <section class="entry-content">
+        $if(bgimage)$
+	<div>
+		<img src="../images/$bgimage$" alt="$title$" />
+	</div>
+        $endif$
+
         $body$
     </section>
 </article>
