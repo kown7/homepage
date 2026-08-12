@@ -1,6 +1,7 @@
 ---
 title: Luca²
 bgimage: himbeerrisotto.jpg
+tags: ["food", "foodlog"]
 ---
 
 Who puts licquorice on a risotto? Give me more!

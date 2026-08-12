@@ -1,5 +1,6 @@
 ---
 title: Widder Restaurant
+tags: ["food", "foodlog"]
 bgimage: widder.webp
 ---
 

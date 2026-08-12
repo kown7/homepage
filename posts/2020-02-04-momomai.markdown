@@ -1,5 +1,6 @@
 ---
 title: Momomai
+tags: ["food", "foodlog"]
 bgimage: momomai_food.jpg
 ---
 

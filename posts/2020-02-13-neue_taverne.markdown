@@ -1,5 +1,6 @@
 ---
 title: Neue Taverne
+tags: ["food", "foodlog"]
 bgimage: neue_taverne.webp
 ---
 

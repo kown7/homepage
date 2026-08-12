@@ -1,5 +1,6 @@
 ---
 title: Isolation
+tags: ["food", "foodlog"]
 bgimage: corona.webp
 ---
 
