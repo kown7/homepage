@@ -63,8 +63,50 @@
   </url>
 
   <url>
+    <loc>https://www.nordstroem.ch/posts/2020-09-20-widder.html</loc>
+    <lastmod>2020-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2020-04-02-corona.html</loc>
+    <lastmod>2020-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2020-02-13-neue_taverne.html</loc>
+    <lastmod>2020-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2020-02-04-momomai.html</loc>
+    <lastmod>2020-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.nordstroem.ch/posts/2019-11-29-unicode-characters.html</loc>
     <lastmod>2019-11-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2019-11-14-butchers_table.html</loc>
+    <lastmod>2019-11-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.nordstroem.ch/posts/2019-08-15-luca2.html</loc>
+    <lastmod>2019-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
