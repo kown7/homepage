@@ -21,6 +21,7 @@ for even more.
 # Medicin
 
 * [Host manipulation by gut bacteria et al](https://onlinelibrary.wiley.com/doi/full/10.1002/bies.201400071)
+* [Cultural Recycling of Cortical Maps](https://www.sciencedirect.com/science/article/pii/S0896627307007593)
 
 # Politics
 
