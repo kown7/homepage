@@ -1,5 +1,6 @@
 ----------
 title: Collected Career Advice for Engineers
+lastupdate: 2026-08-20
 ----------
 
 An attempt to collect and maybe condense my reading on career advice from the
@@ -8,8 +9,6 @@ last decade or so.
 <!--more-->
 
 # Introduction
-
-*Last updated: 2026-07-12*
 
 Have a plan, do something else and update the plan. Drifting is for your twenties, but do drift if you can afford it.
 
