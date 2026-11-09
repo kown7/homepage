@@ -49,6 +49,11 @@ for even more.
 * [Building products – Things I wish I knew earlier when I started building products](https://amiltonpaglia.com/writing/building-products).
 * [Make popular OSS projects](https://skerritt.blog/make-popular-open-source-projects/)
 
+## Office Layouts
+
+* [Library Rules: How to make an open office plan work](https://medium.com/signal-v-noise/library-rules-how-to-make-an-open-office-plan-work-f9f6d69a2d4c)
+* [Surviving an open-plan office](https://www.benkuhn.net/oo/)
+
 ## Management
 
 * [Measuring Developer Productivity](https://newsletter.kentbeck.com/p/measuring-developer-productivity)
